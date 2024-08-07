@@ -27,6 +27,7 @@ kilt-dip-primitives           = { workspace = true }
 pallet-dip-consumer           = { workspace = true }
 pallet-postit                 = { workspace = true }
 pallet-relay-store            = { workspace = true }
+pallet-xcavate-whitelist      = { workspace = true }
 
 # Substrate
 frame-executive                            = { workspace = true }
@@ -36,6 +37,7 @@ frame-system-rpc-runtime-api               = { workspace = true }
 pallet-aura                                = { workspace = true }
 pallet-authorship                          = { workspace = true }
 pallet-balances                            = { workspace = true }
+pallet-collective                          = { workspace = true }
 pallet-session                             = { workspace = true }
 pallet-sudo                                = { workspace = true }
 pallet-timestamp                           = { workspace = true }
@@ -61,6 +63,7 @@ cumulus-pallet-parachain-system = { workspace = true, features = ["parameterized
 cumulus-primitives-aura         = { workspace = true }
 cumulus-primitives-core         = { workspace = true }
 cumulus-primitives-timestamp    = { workspace = true }
+node-primitives                 = { workspace = true }
 pallet-collator-selection       = { workspace = true }
 parachain-info                  = { workspace = true }
 
@@ -119,6 +122,10 @@ std = [
   "sp-transaction-pool/std",
   "sp-version/std",
   "sp-weights/std",
+
+  "node-primitives/std",
+  "pallet-collective/std",
+  "pallet-xcavate-whitelist/std",
 ]
 
 runtime-benchmarks = [
@@ -140,4 +147,7 @@ runtime-benchmarks = [
   "pallet-utility/runtime-benchmarks",
   "rococo-runtime/runtime-benchmarks",
   "sp-runtime/runtime-benchmarks",
+
+  "pallet-collective/runtime-benchmarks",
+  "pallet-xcavate-whitelist/runtime-benchmarks",
 ]
