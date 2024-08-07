@@ -15,7 +15,8 @@ pub mod currency {
 
 /// Time.
 pub mod time {
-	use node_primitives::{BlockNumber, Moment};
+	pub type Moment = u64;
+	pub type BlockNumber = u64;
 
 	/// Since BABE is probabilistic this is the average expected block time that
 	/// we are targeting. Blocks will be produced at a minimum duration defined
