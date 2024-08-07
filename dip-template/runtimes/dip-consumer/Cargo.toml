@@ -40,6 +40,7 @@ pallet-aura                                = { workspace = true }
 pallet-authorship                          = { workspace = true }
 pallet-balances                            = { workspace = true }
 pallet-collective                          = { workspace = true }
+pallet-nft-fractionalization               = { workspace = true }
 pallet-nfts                                = { workspace = true }
 pallet-session                             = { workspace = true }
 pallet-sudo                                = { workspace = true }
@@ -131,6 +132,7 @@ std = [
   "pallet-collective/std",
   "pallet-nfts/std",
   "pallet-xcavate-whitelist/std",
+  "pallet-nft-fractionalization/std",
 ]
 
 runtime-benchmarks = [
@@ -157,4 +159,5 @@ runtime-benchmarks = [
   "pallet-collective/runtime-benchmarks",
   "pallet-nfts/runtime-benchmarks",
   "pallet-xcavate-whitelist/runtime-benchmarks",
+  "pallet-nft-fractionalization/runtime-benchmarks",
 ]
