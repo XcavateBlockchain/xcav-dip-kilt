@@ -135,6 +135,7 @@ std = [
   "pallet-nft-marketplace/std",
   "pallet-nfts/std",
   "pallet-xcavate-whitelist/std",
+  "cumulus-primitives-aura/std",
 ]
 
 runtime-benchmarks = [

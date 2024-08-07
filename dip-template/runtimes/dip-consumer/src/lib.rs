@@ -48,7 +48,7 @@ use frame_support::{
 	construct_runtime,
 	dispatch::DispatchClass,
 	parameter_types,
-	traits::{ConstU32, ConstU64, ConstU8, EnqueueWithOrigin, Everything, EitherOfDiverse, AsEnsureOriginWithArg},
+	traits::{ConstU32, ConstU64, ConstU8, EnqueueWithOrigin, Everything, EitherOfDiverse, AsEnsureOriginWithArg, EnsureOrigin},
 	weights::{
 		constants::{BlockExecutionWeight, ExtrinsicBaseWeight, RocksDbWeight, WEIGHT_REF_TIME_PER_SECOND},
 		IdentityFee, Weight,
@@ -75,6 +75,7 @@ use sp_runtime::{
 };
 use sp_std::prelude::*;
 use sp_version::RuntimeVersion;
+use pallet_dip_consumer::EnsureDipOrigin;
 
 mod dip;
 mod origin_adapter;
