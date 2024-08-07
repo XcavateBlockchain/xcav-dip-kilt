@@ -44,6 +44,7 @@ pub use sp_runtime::{MultiAddress, Perbill, Permill};
 use cumulus_pallet_parachain_system::{ParachainSetCode, RelayNumberMonotonicallyIncreases};
 use cumulus_primitives_core::{AggregateMessageOrigin, CollationInfo};
 use frame_support::{
+	instances::{Instance1, Instance2},
 	construct_runtime,
 	dispatch::DispatchClass,
 	parameter_types,
@@ -52,10 +53,10 @@ use frame_support::{
 		constants::{BlockExecutionWeight, ExtrinsicBaseWeight, RocksDbWeight, WEIGHT_REF_TIME_PER_SECOND},
 		IdentityFee, Weight,
 	},
-	PalletId,
+	PalletId, ord_parameter_types,
 };
 use frame_system::{
-	limits::{BlockLength, BlockWeights},
+	limits::{BlockLength, BlockWeights}, EnsureSigned, EnsureSignedBy,
 	ChainContext, EnsureRoot,
 };
 use pallet_balances::AccountData;
@@ -68,7 +69,7 @@ use sp_core::{crypto::KeyTypeId, ConstBool, ConstU128, ConstU16, OpaqueMetadata}
 use sp_inherents::{CheckInherentsResult, InherentData};
 use sp_runtime::{
 	create_runtime_str, generic, impl_opaque_keys,
-	traits::{AccountIdLookup, BlakeTwo256, Block as BlockT, OpaqueKeys, Verify},
+	traits::{AccountIdLookup, BlakeTwo256, Block as BlockT, OpaqueKeys, Verify, AccountIdConversion},
 	transaction_validity::{TransactionSource, TransactionValidity},
 	AccountId32, ApplyExtrinsicResult, MultiSignature, OpaqueExtrinsic,
 };
