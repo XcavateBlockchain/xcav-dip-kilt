@@ -53,7 +53,7 @@ use frame_support::{
 		constants::{BlockExecutionWeight, ExtrinsicBaseWeight, RocksDbWeight, WEIGHT_REF_TIME_PER_SECOND},
 		IdentityFee, Weight,
 	},
-	PalletId, ord_parameter_types,
+	PalletId, ord_parameter_types, BoundedVec,
 };
 use frame_system::{
 	limits::{BlockLength, BlockWeights}, EnsureSigned, EnsureSignedBy,
