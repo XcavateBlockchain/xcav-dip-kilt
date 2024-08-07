@@ -80,6 +80,8 @@ dip-consumer-runtime-template = { path = "dip-template/runtimes/dip-consumer", d
 dip-provider-runtime-template = { path = "dip-template/runtimes/dip-provider", default-features = false }
 pallet-postit                 = { path = "dip-template/pallets/pallet-postit", default-features = false }
 
+pallet-xcavate-whitelist = { path = "dip-template/pallets/xcavate-whitelist", default-features = false }
+
 # Internal runtime API (with default disabled)
 kilt-runtime-api-did                = { path = "runtime-api/did", default-features = false }
 kilt-runtime-api-dip-provider       = { path = "runtime-api/dip-provider", default-features = false }
@@ -191,6 +193,7 @@ xcm-simulator               = { git = "https://github.com/paritytech/polkadot-sd
 
 # Client-only (with default enabled)
 cumulus-client-cli                      = { git = "https://github.com/paritytech/polkadot-sdk", branch = "release-crates-io-v1.7.0" }
+node-primitives                      = { git = "https://github.com/paritytech/polkadot-sdk", branch = "release-crates-io-v1.7.0" }
 cumulus-client-collator                 = { git = "https://github.com/paritytech/polkadot-sdk", branch = "release-crates-io-v1.7.0" }
 cumulus-client-consensus-aura           = { git = "https://github.com/paritytech/polkadot-sdk", branch = "release-crates-io-v1.7.0" }
 cumulus-client-consensus-common         = { git = "https://github.com/paritytech/polkadot-sdk", branch = "release-crates-io-v1.7.0" }
