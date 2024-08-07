@@ -53,7 +53,7 @@ use frame_support::{
 		constants::{BlockExecutionWeight, ExtrinsicBaseWeight, RocksDbWeight, WEIGHT_REF_TIME_PER_SECOND},
 		IdentityFee, Weight,
 	},
-	PalletId, ord_parameter_types, BoundedVec,
+	PalletId, ord_parameter_types,
 };
 use frame_system::{
 	limits::{BlockLength, BlockWeights}, EnsureSigned, EnsureSignedBy,
@@ -158,6 +158,7 @@ construct_runtime!(
 		Assets: pallet_assets::<Instance1> = 47,
 		PoolAssets: pallet_assets::<Instance2> = 48,
 		NftFractionalization: pallet_nft_fractionalization = 49,
+		NftMarketplace: pallet_nft_marketplace = 50,
 	}
 );
 
@@ -602,6 +603,35 @@ impl pallet_nft_fractionalization::Config for Runtime {
 	#[cfg(feature = "runtime-benchmarks")]
 	type BenchmarkHelper = ();
 	type RuntimeHoldReason = RuntimeHoldReason;
+}
+
+parameter_types! {
+	pub const CommunityProjectPalletId: PalletId = PalletId(*b"py/cmprj");
+	pub const NftMarketplacePalletId: PalletId = PalletId(*b"py/nftxc");
+	pub const TreasuryPalletId: PalletId = PalletId(*b"py/trsry");
+	pub const MaxNftTokens: u32 = 250;
+	pub const Postcode: u32 = 10;
+}
+
+/// Configure the pallet-nft-marketplace in pallets/nft-marketplace.
+impl pallet_nft_marketplace::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type WeightInfo = pallet_nft_marketplace::weights::SubstrateWeight<Runtime>;
+	type Currency = Balances;
+	type PalletId = NftMarketplacePalletId;
+	type MaxNftToken = MaxNftTokens;
+	type LocationOrigin = EnsureRoot<Self::AccountId>;
+	#[cfg(feature = "runtime-benchmarks")]
+	type Helper = pallet_nft_marketplace::NftHelper;
+	type CollectionId = u32;
+	type ItemId = u32;
+	type TreasuryId = TreasuryPalletId;
+	type CommunityProjectsId = CommunityProjectPalletId;
+	type FractionalizeCollectionId = <Self as pallet_nfts::Config>::CollectionId;
+	type FractionalizeItemId = <Self as pallet_nfts::Config>::ItemId;
+	type AssetId = <Self as pallet_assets::Config<Instance1>>::AssetId;
+	type AssetId2 = u32;
+	type PostcodeLimit = Postcode;
 }
 
 #[cfg(feature = "runtime-benchmarks")]
