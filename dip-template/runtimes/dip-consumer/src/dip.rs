@@ -554,6 +554,7 @@ impl Contains<RuntimeCall> for PreliminaryDipOriginFilter {
 		matches!(
 			t,
 			RuntimeCall::PostIt { .. }
+				| RuntimeCall::NftMarketplace(pallet_nft_marketplace::Call::buy_token { .. })
 				| RuntimeCall::Utility(pallet_utility::Call::batch { .. })
 				| RuntimeCall::Utility(pallet_utility::Call::batch_all { .. })
 				| RuntimeCall::Utility(pallet_utility::Call::force_batch { .. })
@@ -571,6 +572,9 @@ impl Contains<RuntimeCall> for PreliminaryDipOriginFilter {
 /// by a DID's authentication key. Everything else will fail.
 fn derive_verification_key_relationship(call: &RuntimeCall) -> Option<DidVerificationKeyRelationship> {
 	match call {
+		RuntimeCall::NftMarketplace(pallet_nft_marketplace::Call::buy_token { .. }) => {
+			Some(DidVerificationKeyRelationship::Authentication)
+		}
 		RuntimeCall::PostIt { .. } => Some(DidVerificationKeyRelationship::Authentication),
 		#[cfg(feature = "runtime-benchmarks")]
 		RuntimeCall::System(frame_system::Call::remark { .. }) => Some(DidVerificationKeyRelationship::Authentication),

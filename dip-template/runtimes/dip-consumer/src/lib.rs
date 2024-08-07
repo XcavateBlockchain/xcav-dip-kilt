@@ -614,6 +614,31 @@ parameter_types! {
 }
 
 /// Configure the pallet-nft-marketplace in pallets/nft-marketplace.
+struct DipOriginToDidAdapter;
+
+impl EnsureOrigin<RuntimeCall> for DipOriginToDidAdapter {
+	type Success = dip_provider_runtime_template::DidIdentifier;
+
+	fn try_origin(o: RuntimeCall) -> Result<Self::Success, RuntimeCall> {
+		let dip_origin = EnsureDipOrigin::<
+			dip_provider_runtime_template::DidIdentifier,
+			dip_provider_runtime_template::AccountId,
+			(),
+		>::try_origin(o)?;
+		Ok(dip_origin.identifier)
+	}
+
+	#[cfg(feature = "runtime-benchmarks")]
+	fn try_successful_origin() -> Result<RuntimeCall, ()> {
+		let successful_origin = EnsureDipOrigin::<
+			dip_provider_runtime_template::DidIdentifier,
+			dip_provider_runtime_template::AccountId,
+			(),
+		>::try_successful_origin();
+	}
+}
+
+/// Configure the pallet-nft-marketplace in pallets/nft-marketplace.
 impl pallet_nft_marketplace::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type WeightInfo = pallet_nft_marketplace::weights::SubstrateWeight<Runtime>;
@@ -632,6 +657,8 @@ impl pallet_nft_marketplace::Config for Runtime {
 	type AssetId = <Self as pallet_assets::Config<Instance1>>::AssetId;
 	type AssetId2 = u32;
 	type PostcodeLimit = Postcode;
+	type DidIdentifier = dip_provider_runtime_template::DidIdentifier;
+	type BuyTokenOrigin = DipOriginToDidAdapter;
 }
 
 #[cfg(feature = "runtime-benchmarks")]

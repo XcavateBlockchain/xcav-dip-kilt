@@ -242,6 +242,9 @@ pub mod pallet {
 		#[pallet::constant]
 		type PostcodeLimit: Get<u32>;
 
+		type DidIdentifier: Parameter + MaxEncodedLen;
+		type BuyTokenOrigin: EnsureOrigin<Self::RuntimeOrigin, Success = Self::DidIdentifier>;
+
 		
 		
 	}
