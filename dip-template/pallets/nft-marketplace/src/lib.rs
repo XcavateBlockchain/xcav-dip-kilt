@@ -1,7 +1,5 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
-pub mod traits;
-
 pub use pallet::*;
 pub use weights::WeightInfo;
 
@@ -50,11 +48,6 @@ pub mod pallet {
 	use super::*;
 	use frame_support::pallet_prelude::*;
 	use frame_system::pallet_prelude::*;
-	use sp_std::fmt::Debug;
-
-	use crate::{
-		traits::GetUsername1,
-	};
 
 	#[pallet::pallet]
 	pub struct Pallet<T>(_);
@@ -257,14 +250,10 @@ pub mod pallet {
 		type CommunityProjectsId: Get<PalletId>;
 
 		/// The maximum length of data stored in for post codes.
-		#[pallet::constant]
 		type PostcodeLimit: Get<u32>;
 
-/* 		type OriginCheck: EnsureOrigin<<Self as frame_system::Config>::RuntimeOrigin, Success = Self::OriginSuccess>;
-		type OriginSuccess: GetUsername1<Username = Self::Username>;
-		type Username: Encode + Decode + TypeInfo + MaxEncodedLen + Clone + PartialEq + Debug + Default; */
 		type DidIdentifier: Parameter + MaxEncodedLen;
-		type BuyTokenOrigin: EnsureOrigin<Self::RuntimeOrigin, Success = Self::DidIdentifier>;
+		type DidOrigin: EnsureOrigin<Self::RuntimeOrigin, Success = (Self::DidIdentifier, Self::AccountId)>;
 	}
 
 	pub type AssetId<T> = <T as Config>::AssetId;
@@ -606,8 +595,7 @@ pub mod pallet {
 			token_amount: u32,
 			data: BoundedVec<u8, <T as pallet_nfts::Config>::StringLimit>,
 		) -> DispatchResult {
-			let signer = ensure_signed(origin.clone())?;
-			let did_origin = T::BuyTokenOrigin::ensure_origin(origin)?;
+			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
 			ensure!(
 				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
 				Error::<T>::UserNotWhitelisted
@@ -712,7 +700,7 @@ pub mod pallet {
 		#[pallet::call_index(3)]
 		#[pallet::weight(<T as pallet::Config>::WeightInfo::buy_token())]
 		pub fn buy_token(origin: OriginFor<T>, listing_id: u32, amount: u32) -> DispatchResult {
-			let origin = ensure_signed(origin.clone())?;
+			let (_did_origin, origin) = T::DidOrigin::ensure_origin(origin)?;
 			ensure!(
 				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(origin.clone()),
 				Error::<T>::UserNotWhitelisted
@@ -786,7 +774,7 @@ pub mod pallet {
 			token_price: BalanceOf<T>,
 			amount: u32,
 		) -> DispatchResult {
-			let signer = ensure_signed(origin.clone())?;
+			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin.clone())?;
 
 			ensure!(
 				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
@@ -848,7 +836,7 @@ pub mod pallet {
 			listing_id: u32,
 			amount: u32,
 		) -> DispatchResult {
-			let origin = ensure_signed(origin)?;
+			let (_did_origin, origin) = T::DidOrigin::ensure_origin(origin)?;
 			ensure!(
 				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(origin.clone()),
 				Error::<T>::UserNotWhitelisted
@@ -889,7 +877,7 @@ pub mod pallet {
 			offer_price: BalanceOf<T>,
 			amount: u32,
 		) -> DispatchResult {
-			let signer = ensure_signed(origin)?;
+			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
 			ensure!(
 				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
 				Error::<T>::UserNotWhitelisted
@@ -926,7 +914,7 @@ pub mod pallet {
 			offer_id: u32,
 			offer: Offer,
 		) -> DispatchResult {
-			let signer = ensure_signed(origin)?;
+			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
 			ensure!(
 				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
 				Error::<T>::UserNotWhitelisted
@@ -971,7 +959,7 @@ pub mod pallet {
 			listing_id: u32,
 			offer_id: u32,
 		) -> DispatchResult {
-			let signer = ensure_signed(origin)?;
+			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
 			let offer_details =
 				OngoingOffer::<T>::take(listing_id, offer_id).ok_or(Error::<T>::InvalidIndex)?;
 			ensure!(offer_details.buyer == signer, Error::<T>::NoPermission);
@@ -1000,7 +988,7 @@ pub mod pallet {
 			listing_id: u32,
 			new_price: BalanceOf<T>,
 		) -> DispatchResult {
-			let signer = ensure_signed(origin)?;
+			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
 			ensure!(
 				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
 				Error::<T>::UserNotWhitelisted
@@ -1033,7 +1021,7 @@ pub mod pallet {
 			listing_id: u32,
 			new_price: BalanceOf<T>,
 		) -> DispatchResult {
-			let signer = ensure_signed(origin)?;
+			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
 			ensure!(
 				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
 				Error::<T>::UserNotWhitelisted
@@ -1065,7 +1053,7 @@ pub mod pallet {
 		#[pallet::call_index(11)]
 		#[pallet::weight(<T as pallet::Config>::WeightInfo::delist_token())]
 		pub fn delist_token(origin: OriginFor<T>, listing_id: u32) -> DispatchResult {
-			let signer = ensure_signed(origin)?;
+			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
 			ensure!(
 				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
 				Error::<T>::UserNotWhitelisted
