@@ -25,6 +25,8 @@ use pallet_nft_marketplace::traits::GetUsername1;
 use parity_scale_codec::{Decode, Encode, MaxEncodedLen};
 use scale_info::TypeInfo;
 use sp_core::RuntimeDebug;
+use pallet_dip_consumer::VerificationResultOf;
+use crate::Runtime;
 
 /// An origin adapter which is used to make sure that a given [`DipOrigin`]
 /// contains, among other things, a web3name. If a pallet extrinsic that
@@ -55,7 +57,7 @@ impl EnsureOrigin<RuntimeOrigin> for DipOriginToDidAdapter {
 		let dip_origin = EnsureDipOrigin::<
 			dip_provider_runtime_template::DidIdentifier,
 			dip_provider_runtime_template::AccountId,
-			(),
+			VerificationResultOf<Runtime>,
 		>::try_origin(o)?;
 		Ok(dip_origin.identifier)
     }
@@ -65,7 +67,7 @@ impl EnsureOrigin<RuntimeOrigin> for DipOriginToDidAdapter {
         let successful_origin = EnsureDipOrigin::<
             dip_provider_runtime_template::DidIdentifier,
             dip_provider_runtime_template::AccountId,
-            (),
+            VerificationResultOf<Runtime>,
         >::try_successful_origin()?;
 
         Ok(successful_origin)
