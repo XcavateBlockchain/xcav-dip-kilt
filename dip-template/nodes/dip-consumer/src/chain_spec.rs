@@ -96,6 +96,7 @@ fn testnet_genesis(
 				.map(|(acc, aura)| (acc.clone(), acc, template_session_keys(aura)))
 				.collect(),
 		},
+		alliance_motion: Default::default(),
 		..Default::default()
 	}
 }
