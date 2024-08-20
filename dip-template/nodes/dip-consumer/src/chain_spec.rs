@@ -28,7 +28,7 @@ use serde_json::to_value;
 use sp_core::{sr25519, Pair, Public};
 use sp_runtime::traits::{IdentifyAccount, Verify};
 
-const PARA_ID: u32 = 2_001;
+const PARA_ID: u32 = 4003;
 
 pub type ChainSpec = GenericChainSpec<RuntimeGenesisConfig, Extensions>;
 type AccountPublic = <Signature as Verify>::Signer;
@@ -73,7 +73,6 @@ fn testnet_genesis(
 	id: ParaId,
 ) -> RuntimeGenesisConfig {
 	RuntimeGenesisConfig {
-		parachain_system: Default::default(),
 		parachain_info: ParachainInfoConfig {
 			parachain_id: id,
 			..Default::default()
@@ -84,7 +83,6 @@ fn testnet_genesis(
 		balances: BalancesConfig {
 			balances: endowed_accounts.iter().cloned().map(|k| (k, 1 << 60)).collect(),
 		},
-		transaction_payment: Default::default(),
 		collator_selection: CollatorSelectionConfig {
 			invulnerables: invulnerables.iter().cloned().map(|(acc, _)| acc).collect(),
 			candidacy_bond: EXISTENTIAL_DEPOSIT * 16,
@@ -96,7 +94,6 @@ fn testnet_genesis(
 				.map(|(acc, aura)| (acc.clone(), acc, template_session_keys(aura)))
 				.collect(),
 		},
-		alliance_motion: Default::default(),
 		..Default::default()
 	}
 }
@@ -104,7 +101,7 @@ fn testnet_genesis(
 pub fn development_config() -> ChainSpec {
 	let wasm_binary = WASM_BINARY.expect("WASM binary was not build, please build it!");
 	let mut properties = Properties::new();
-	properties.insert("tokenSymbol".into(), "REILT".into());
+	properties.insert("tokenSymbol".into(), "XCAV".into());
 	properties.insert("tokenDecimals".into(), 12.into());
 	properties.insert("ss58Format".into(), SS58_PREFIX.into());
 
@@ -112,7 +109,12 @@ pub fn development_config() -> ChainSpec {
 		vec![(
 			get_account_id_from_seed::<sr25519::Public>("Alice"),
 			get_collator_keys_from_seed("Alice"),
-		)],
+		),
+		(
+			get_account_id_from_seed::<sr25519::Public>("Bob"),
+			get_collator_keys_from_seed("Bob"),
+		)
+		],
 		vec![
 			get_account_id_from_seed::<sr25519::Public>("Alice"),
 			get_account_id_from_seed::<sr25519::Public>("Alice//stash"),
@@ -127,14 +129,14 @@ pub fn development_config() -> ChainSpec {
 	ChainSpec::builder(
 		wasm_binary,
 		Extensions {
-			relay_chain: "rococo-local".into(),
+			relay_chain: "paseo".into(),
 			para_id: PARA_ID,
 		},
 	)
-	.with_name("DIP consumer dev")
-	.with_id("dip-consumer-dev")
+	.with_name("DIP xcavate consumer dev")
+	.with_id("dip-xcavate-consumer-dev")
 	.with_chain_type(ChainType::Development)
-	.with_protocol_id("dip-consumer-dev")
+	.with_protocol_id("dip-xcavate-consumer-dev")
 	.with_properties(properties)
 	.with_genesis_config(to_value(genesis).unwrap())
 	.build()

@@ -25,21 +25,25 @@ did                           = { workspace = true }
 dip-provider-runtime-template = { workspace = true }
 kilt-dip-primitives           = { workspace = true }
 pallet-dip-consumer           = { workspace = true }
-pallet-postit                 = { workspace = true }
-pallet-xcavate-whitelist      = { workspace = true }
 pallet-nft-marketplace        = { workspace = true }
-pallet-property-management    = { workspace = true }
+pallet-postit                 = { workspace = true }
 pallet-property-governance    = { workspace = true }
+pallet-property-management    = { workspace = true }
 pallet-relay-store            = { workspace = true }
+pallet-xcavate-whitelist      = { workspace = true }
 
 # Substrate
 frame-executive                            = { workspace = true }
 frame-support                              = { workspace = true }
 frame-system                               = { workspace = true }
 frame-system-rpc-runtime-api               = { workspace = true }
+pallet-assets                              = { workspace = true }
 pallet-aura                                = { workspace = true }
 pallet-authorship                          = { workspace = true }
 pallet-balances                            = { workspace = true }
+pallet-collective                          = { workspace = true }
+pallet-nft-fractionalization               = { workspace = true }
+pallet-nfts                                = { workspace = true }
 pallet-session                             = { workspace = true }
 pallet-sudo                                = { workspace = true }
 pallet-timestamp                           = { workspace = true }
@@ -50,6 +54,7 @@ sp-api                                     = { workspace = true }
 sp-block-builder                           = { workspace = true }
 sp-consensus-aura                          = { workspace = true }
 sp-core                                    = { workspace = true }
+sp-genesis-builder                         = { workspace = true }
 sp-inherents                               = { workspace = true }
 sp-offchain                                = { workspace = true }
 sp-runtime                                 = { workspace = true }
@@ -58,10 +63,6 @@ sp-std                                     = { workspace = true }
 sp-transaction-pool                        = { workspace = true }
 sp-version                                 = { workspace = true }
 sp-weights                                 = { workspace = true }
-pallet-collective                          = { workspace = true }
-pallet-nfts                                = { workspace = true }
-pallet-assets                              = { workspace = true }
-pallet-nft-fractionalization               = { workspace = true }
 
 # Cumulus
 cumulus-pallet-aura-ext         = { workspace = true }
@@ -98,12 +99,19 @@ std = [
   "frame-system/std",
   "kilt-dip-primitives/std",
   "kilt-support?/std",
+  "pallet-assets/std",
   "pallet-aura/std",
   "pallet-authorship/std",
   "pallet-balances/std",
   "pallet-collator-selection/std",
+  "pallet-collective/std",
   "pallet-dip-consumer/std",
+  "pallet-nft-fractionalization/std",
+  "pallet-nft-marketplace/std",
+  "pallet-nfts/std",
   "pallet-postit/std",
+  "pallet-property-governance/std",
+  "pallet-property-management/std",
   "pallet-relay-store/std",
   "pallet-session/std",
   "pallet-sudo/std",
@@ -111,6 +119,7 @@ std = [
   "pallet-transaction-payment-rpc-runtime-api/std",
   "pallet-transaction-payment/std",
   "pallet-utility/std",
+  "pallet-xcavate-whitelist/std",
   "parachain-info/std",
   "parity-scale-codec/std",
   "rococo-runtime/std",
@@ -119,6 +128,7 @@ std = [
   "sp-block-builder/std",
   "sp-consensus-aura/std",
   "sp-core/std",
+  "sp-genesis-builder/std",
   "sp-inherents/std",
   "sp-offchain/std",
   "sp-runtime/std",
@@ -127,14 +137,6 @@ std = [
   "sp-transaction-pool/std",
   "sp-version/std",
   "sp-weights/std",
-  "pallet-xcavate-whitelist/std",
-  "pallet-nft-marketplace/std",
-  "pallet-property-management/std",
-  "pallet-property-governance/std",
-  "pallet-collective/std",
-  "pallet-assets/std",
-  "pallet-nfts/std",
-  "pallet-nft-fractionalization/std",
 ]
 
 runtime-benchmarks = [
@@ -147,21 +149,21 @@ runtime-benchmarks = [
   "hex-literal",
   "kilt-dip-primitives/runtime-benchmarks",
   "kilt-support/runtime-benchmarks",
+  "pallet-assets/runtime-benchmarks",
   "pallet-balances/runtime-benchmarks",
   "pallet-collator-selection/runtime-benchmarks",
+  "pallet-collective/runtime-benchmarks",
   "pallet-dip-consumer/runtime-benchmarks",
+  "pallet-nft-fractionalization/runtime-benchmarks",
+  "pallet-nft-marketplace/runtime-benchmarks",
+  "pallet-nfts/runtime-benchmarks",
+  "pallet-property-governance/runtime-benchmarks",
+  "pallet-property-management/runtime-benchmarks",
   "pallet-relay-store/runtime-benchmarks",
   "pallet-sudo/runtime-benchmarks",
   "pallet-timestamp/runtime-benchmarks",
   "pallet-utility/runtime-benchmarks",
+  "pallet-xcavate-whitelist/runtime-benchmarks",
   "rococo-runtime/runtime-benchmarks",
   "sp-runtime/runtime-benchmarks",
-  "pallet-xcavate-whitelist/runtime-benchmarks",
-  "pallet-nft-marketplace/runtime-benchmarks",
-  "pallet-property-management/runtime-benchmarks",
-  "pallet-property-governance/runtime-benchmarks",
-  "pallet-collective/runtime-benchmarks",
-  "pallet-assets/runtime-benchmarks",
-  "pallet-nfts/runtime-benchmarks",
-  "pallet-nft-fractionalization/runtime-benchmarks",
 ]
