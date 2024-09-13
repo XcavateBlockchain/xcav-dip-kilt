@@ -15,7 +15,7 @@ ganesholi@Ganeshs-MacBook-Air xcav-dip-kilt %
 ./target/release/dip-consumer-node-template key insert --base-path ./tmp/node02 \
   --chain raw-parachain-chainspec.json \
   --scheme Sr25519 \
-  --suri "tourist recipe bar advance debate noodle cream giant genius father spike pave" \
+  --suri "scorpion lyrics coffee bone broom quit noble rural simple tongue select cool" \
   --password-interactive \
   --key-type aura
 
@@ -34,6 +34,6 @@ ganesholi@Ganeshs-MacBook-Air xcav-dip-kilt %
 ganesholi@Ganeshs-MacBook-Air xcavate-on-kilt-dip-consumer % ./target/release/dip-consumer-node-template key insert --base-path ./tmp/node01 \
   --chain raw-parachain-chainspec.json \
   --scheme Sr25519 \
-  --suri "spell witness umbrella frost twice number coil suggest swap road brain frequent" \
+  --suri "raise abuse force leader later clap wet combine dwarf best salon clever" \
   --password-interactive \
   --key-type aura

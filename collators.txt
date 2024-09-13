@@ -8,6 +8,7 @@
 --base-path ./tmp/node02 \
 --port 40334 \
 --rpc-port 8845 \
+--rpc-cors=all \
 -- \
 --execution wasm \
 --chain paseo.json \
@@ -27,7 +28,7 @@
 --base-path ./tmp/node01 \
 --port 40333 \
 --rpc-port 8844 \
---bootnodes /ip4/127.0.0.1/tcp/40334/p2p/12D3KooWHCCB6RwMzpURM8V4TYyqwUT6SywJspWbhk7x1J5XoucY \
+--bootnodes /ip4/127.0.0.1/tcp/40334/p2p/12D3KooWEwBnzy7UK4pfrfMHTmvH2mnXuy6KiXkjZh8YTUsLrRcd \
 -- \
 --execution wasm \
 --chain paseo.json \
@@ -36,3 +37,8 @@
 --rpc-methods unsafe \
 --unsafe-rpc-external \
 --blocks-pruning=256
+
+
+
+12D3KooWEwBnzy7UK4pfrfMHTmvH2mnXuy6KiXkjZh8YTUsLrRcd
+

@@ -45,7 +45,7 @@ const MAX_PROVIDER_REVEALABLE_KEYS_COUNT: u32 = MAX_PUBLIC_KEYS_PER_DID + MAX_RE
 pub type ProviderTemplateProofVerifier = KiltVersionedParachainVerifier<
 	RelaychainRuntime,
 	RelayStateRootsViaRelayStorePallet<Runtime>,
-	2_000,
+	2086,
 	ProviderRuntime,
 	DipCallFilter<KeyIdOf<ProviderRuntime>, BlockNumberFor<ProviderRuntime>, ProviderAccountId>,
 	(),
