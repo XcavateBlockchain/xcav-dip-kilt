@@ -596,10 +596,10 @@ pub mod pallet {
 			data: BoundedVec<u8, <T as pallet_nfts::Config>::StringLimit>,
 		) -> DispatchResult {
 			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
-			ensure!(
-				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
-				Error::<T>::UserNotWhitelisted
-			);
+			// ensure!(
+			// 	pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
+			// 	Error::<T>::UserNotWhitelisted
+			// );
 			ensure!(token_amount <= T::MaxNftToken::get(), Error::<T>::TooManyToken);
 			let collection_id: CollectionId<T> =
 				Self::region_collections(region).ok_or(Error::<T>::RegionUnknown)?;
@@ -701,10 +701,10 @@ pub mod pallet {
 		#[pallet::weight(<T as pallet::Config>::WeightInfo::buy_token())]
 		pub fn buy_token(origin: OriginFor<T>, listing_id: u32, amount: u32) -> DispatchResult {
 			let (_did_origin, origin) = T::DidOrigin::ensure_origin(origin)?;
-			ensure!(
-				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(origin.clone()),
-				Error::<T>::UserNotWhitelisted
-			);
+			// ensure!(
+			// 	pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(origin.clone()),
+			// 	Error::<T>::UserNotWhitelisted
+			// );
 			let mut listed_token =
 				ListedToken::<T>::take(listing_id).ok_or(Error::<T>::TokenNotForSale)?;
 			ensure!(listed_token >= amount, Error::<T>::NotEnoughTokenAvailable);
@@ -776,10 +776,10 @@ pub mod pallet {
 		) -> DispatchResult {
 			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin.clone())?;
 
-			ensure!(
-				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
-				Error::<T>::UserNotWhitelisted
-			);
+			// ensure!(
+			// 	pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
+			// 	Error::<T>::UserNotWhitelisted
+			// );
 			let collection_id: CollectionId<T> =
 				Self::region_collections(region).ok_or(Error::<T>::RegionUnknown)?;
 
@@ -837,10 +837,10 @@ pub mod pallet {
 			amount: u32,
 		) -> DispatchResult {
 			let (_did_origin, origin) = T::DidOrigin::ensure_origin(origin)?;
-			ensure!(
-				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(origin.clone()),
-				Error::<T>::UserNotWhitelisted
-			);
+			// ensure!(
+			// 	pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(origin.clone()),
+			// 	Error::<T>::UserNotWhitelisted
+			// );
 			let listing_details =
 				TokenListings::<T>::take(listing_id).ok_or(Error::<T>::TokenNotForSale)?;
 			ensure!(listing_details.amount >= amount, Error::<T>::NotEnoughTokenAvailable);
@@ -878,10 +878,10 @@ pub mod pallet {
 			amount: u32,
 		) -> DispatchResult {
 			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
-			ensure!(
-				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
-				Error::<T>::UserNotWhitelisted
-			);
+			// ensure!(
+			// 	pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
+			// 	Error::<T>::UserNotWhitelisted
+			// );
 			let listing_details =
 				Self::token_listings(listing_id).ok_or(Error::<T>::TokenNotForSale)?;
 			ensure!(listing_details.amount >= amount, Error::<T>::NotEnoughTokenAvailable);
@@ -915,10 +915,10 @@ pub mod pallet {
 			offer: Offer,
 		) -> DispatchResult {
 			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
-			ensure!(
-				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
-				Error::<T>::UserNotWhitelisted
-			);
+			// ensure!(
+			// 	pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
+			// 	Error::<T>::UserNotWhitelisted
+			// );
 			let listing_details =
 				Self::token_listings(listing_id).ok_or(Error::<T>::TokenNotForSale)?;
 			ensure!(listing_details.seller == signer, Error::<T>::NoPermission);
@@ -989,10 +989,10 @@ pub mod pallet {
 			new_price: BalanceOf<T>,
 		) -> DispatchResult {
 			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
-			ensure!(
-				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
-				Error::<T>::UserNotWhitelisted
-			);
+			// ensure!(
+			// 	pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
+			// 	Error::<T>::UserNotWhitelisted
+			// );
 			let mut listing_details =
 				Self::token_listings(listing_id).ok_or(Error::<T>::TokenNotForSale)?;
 			ensure!(listing_details.seller == signer, Error::<T>::NoPermission);
@@ -1022,10 +1022,10 @@ pub mod pallet {
 			new_price: BalanceOf<T>,
 		) -> DispatchResult {
 			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
-			ensure!(
-				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
-				Error::<T>::UserNotWhitelisted
-			);
+			// ensure!(
+			// 	pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
+			// 	Error::<T>::UserNotWhitelisted
+			// );
 			let mut nft_details =
 				Self::ongoing_object_listing(listing_id).ok_or(Error::<T>::InvalidIndex)?;
 			ensure!(
@@ -1054,10 +1054,10 @@ pub mod pallet {
 		#[pallet::weight(<T as pallet::Config>::WeightInfo::delist_token())]
 		pub fn delist_token(origin: OriginFor<T>, listing_id: u32) -> DispatchResult {
 			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
-			ensure!(
-				pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
-				Error::<T>::UserNotWhitelisted
-			);
+			// ensure!(
+			// 	pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
+			// 	Error::<T>::UserNotWhitelisted
+			// );
 			let listing_details =
 				TokenListings::<T>::take(listing_id).ok_or(Error::<T>::TokenNotForSale)?;
 			ensure!(listing_details.seller == signer, Error::<T>::NoPermission);
