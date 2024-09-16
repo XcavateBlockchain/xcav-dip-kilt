@@ -603,10 +603,10 @@ pub mod pallet {
 			ensure!(token_amount <= T::MaxNftToken::get(), Error::<T>::TooManyToken);
 			let collection_id: CollectionId<T> =
 				Self::region_collections(region).ok_or(Error::<T>::RegionUnknown)?;
-			ensure!(
+/* 			ensure!(
 				Self::location_registration(region, location.clone()),
 				Error::<T>::LocationUnknown
-			);
+			); */
 			let mut next_item_id = Self::next_nft_id(collection_id);
 			let mut asset_number: u32 = Self::next_asset_id();
 			let mut asset_id: AssetId2<T> = asset_number.into();
