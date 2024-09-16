@@ -40,18 +40,17 @@ pub use sp_runtime::{MultiAddress, Perbill, Permill};
 use cumulus_pallet_parachain_system::{ParachainSetCode, RelayNumberMonotonicallyIncreases};
 use cumulus_primitives_core::{AggregateMessageOrigin, CollationInfo};
 use frame_support::{
-	instances::Instance1,
 	construct_runtime,
 	dispatch::DispatchClass,
 	genesis_builder_helper::{build_config, create_default_config},
+	instances::Instance1,
 	parameter_types,
-	traits::{ConstU32, ConstU64, ConstU8, EnqueueWithOrigin, Everything, EitherOfDiverse,
-			AsEnsureOriginWithArg},
+	traits::{AsEnsureOriginWithArg, ConstU32, ConstU64, ConstU8, EitherOfDiverse, EnqueueWithOrigin, Everything},
 	weights::{
 		constants::{BlockExecutionWeight, ExtrinsicBaseWeight, RocksDbWeight, WEIGHT_REF_TIME_PER_SECOND},
 		IdentityFee, Weight,
 	},
-	PalletId, BoundedVec,
+	BoundedVec, PalletId,
 };
 use frame_system::{
 	limits::{BlockLength, BlockWeights},
@@ -59,6 +58,7 @@ use frame_system::{
 };
 use pallet_balances::AccountData;
 use pallet_collator_selection::IdentityCollator;
+use pallet_nfts::PalletFeatures;
 use pallet_session::{FindAccountFromAuthorIndex, PeriodicSessions};
 use pallet_transaction_payment::{FeeDetails, FungibleAdapter, RuntimeDispatchInfo};
 use sp_api::impl_runtime_apis;
@@ -73,7 +73,6 @@ use sp_runtime::{
 };
 use sp_std::prelude::*;
 use sp_version::RuntimeVersion;
-use pallet_nfts::PalletFeatures;
 
 mod dip;
 mod origin_adapter;
@@ -168,7 +167,7 @@ pub const VERSION: RuntimeVersion = RuntimeVersion {
 	spec_name: create_runtime_str!("dip-consumer-runtime-template"),
 	impl_name: create_runtime_str!("dip-consumer-runtime-template"),
 	authoring_version: 1,
-	spec_version: 11401,
+	spec_version: 11405,
 	impl_version: 0,
 	apis: RUNTIME_API_VERSIONS,
 	transaction_version: 1,
