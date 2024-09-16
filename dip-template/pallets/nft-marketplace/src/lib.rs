@@ -427,16 +427,6 @@ pub mod pallet {
 		OfferDetails<BalanceOf<T>, T>,
 		OptionQuery,
 	>;
-	
-	#[pallet::storage]
-	#[pallet::getter(fn did_storage)]
-	pub(super) type DidStorage<T: Config> = StorageMap<
-		_,
-		Blake2_128Concat,
-		u32,
-		AccountIdOf<T>,
-		OptionQuery,
-	>;
 
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -468,8 +458,6 @@ pub mod pallet {
 		OfferCreated { listing_id: u32, price: BalanceOf<T> },
 		/// An offer has been cancelled.
 		OfferCancelled { listing_id: u32, offer_id: u32 },
-
-		TestDid { number: u32 }
 	}
 
 	// Errors inform users that something went wrong.
@@ -584,18 +572,6 @@ pub mod pallet {
 			Ok(())
 		}
 
-		#[pallet::call_index(20)]
-		#[pallet::weight(<T as pallet::Config>::WeightInfo::create_new_location())]
-		pub fn did_test(
-			origin: OriginFor<T>,
-			number: u32,
-		) -> DispatchResult {
-			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
-			DidStorage::<T>::insert(number, signer);
-			Self::deposit_event(Event::<T>::TestDid { number });
-			Ok(())
-		}
-
 		/// List a real estate object. A new nft gets minted.
 		/// This function calls the nfts-pallet to mint a new nft and sets the Metadata.
 		///
@@ -619,8 +595,7 @@ pub mod pallet {
 			token_amount: u32,
 			data: BoundedVec<u8, <T as pallet_nfts::Config>::StringLimit>,
 		) -> DispatchResult {
-			let signer = ensure_signed(origin.clone())?;
-			//let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
+			let (_did_origin, signer) = T::DidOrigin::ensure_origin(origin)?;
 			// ensure!(
 			// 	pallet_xcavate_whitelist::Pallet::<T>::whitelisted_accounts(signer.clone()),
 			// 	Error::<T>::UserNotWhitelisted
