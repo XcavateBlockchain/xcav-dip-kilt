@@ -230,7 +230,7 @@ impl frame_system::Config for Runtime {
 	type Hash = Hash;
 	type Hashing = BlakeTwo256;
 	type Lookup = AccountIdLookup<AccountId, ()>;
-	type MaxConsumers = ConstU32<16>;
+	type MaxConsumers = ConstU32<1024>;
 	type Nonce = u64;
 	type OnKilledAccount = ();
 	type OnNewAccount = ();
