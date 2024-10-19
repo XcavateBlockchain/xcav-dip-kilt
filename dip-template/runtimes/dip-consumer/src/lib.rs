@@ -155,10 +155,14 @@ construct_runtime!(
 		NftMarketplace: pallet_nft_marketplace = 32,
 		PropertyManagement: pallet_property_management = 33,
 		PropertyGovernance: pallet_property_governance = 34,
+		GameModule: pallet_game = 35,
 
 		// DIP
 		DipConsumer: pallet_dip_consumer = 40,
 		RelayStore: pallet_relay_store = 41,
+
+		// Others
+		RandomnessCollectiveFlip: pallet_insecure_randomness_collective_flip = 50,
 	}
 );
 
@@ -505,6 +509,8 @@ impl pallet_nfts::Config for Runtime {
 	type Locker = ();
 }
 
+impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
+
 parameter_types! {
 	pub const AssetConversionPalletId: PalletId = PalletId(*b"py/ascon");
 	pub const AssetDeposit: Balance = 100 * DOLLARS;
@@ -575,6 +581,42 @@ impl pallet_xcavate_whitelist::Config for Runtime {
 		pallet_collective::EnsureProportionMoreThan<AccountId, CouncilCollective, 1, 2>,
 	>;
 	type MaxUsersInWhitelist = MaxWhitelistUsers;
+}
+
+#[derive(Debug, Clone, Copy, Eq, PartialEq)]
+pub struct MaxProperties;
+
+impl sp_core::Get<u32> for MaxProperties {
+	fn get() -> u32 {
+		100
+	}
+}
+
+parameter_types! {
+	pub const GamePalletId: PalletId = PalletId(*b"py/rlxdl");
+	pub const MaxOngoingGame: u32 = 200;
+	pub const LeaderLimit: u32 = 10;
+	pub const MaxAdmin: u32 = 10;
+	pub const RequestLimits: BlockNumber = 100800;
+	pub const GameStringLimit: u32 = 500;
+}
+
+/// Configure the pallet-game in pallets/game.
+impl pallet_game::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type Currency = Balances;
+	type WeightInfo = pallet_game::weights::SubstrateWeight<Runtime>;
+	type GameOrigin = EnsureRoot<Self::AccountId>;
+	type CollectionId = u32;
+	type ItemId = u32;
+	type MaxProperty = MaxProperties;
+	type PalletId = GamePalletId;
+	type MaxOngoingGames = MaxOngoingGame;
+	type GameRandomness = RandomnessCollectiveFlip;
+	type StringLimit = GameStringLimit;
+	type LeaderboardLimit = LeaderLimit;
+	type MaxAdmins = MaxAdmin;
+	type RequestLimit = RequestLimits;
 }
 
 parameter_types! {
@@ -678,6 +720,7 @@ mod benches {
 		[pallet_relay_store, RelayStore]
 		[pallet_relay_store, RelayStore]
 		[pallet_xcavate_whitelist, XcavateWhitelist]
+		[pallet_game, GameModule]
 		[pallet_nft_marketplace, NftMarketplace]
 		[pallet_property_management, PropertyManagement]
 		[pallet_property_governance, PropertyGovernance]

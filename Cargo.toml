@@ -83,6 +83,7 @@ pallet-xcavate-whitelist      = { path = "dip-template/pallets/xcavate-whitelist
 pallet-nft-marketplace      = { path = "dip-template/pallets/nft-marketplace", default-features = false }
 pallet-property-management      = { path = "dip-template/pallets/property-management", default-features = false }
 pallet-property-governance      = { path = "dip-template/pallets/property-governance", default-features = false }
+pallet-game      = { path = "dip-template/pallets/game", default-features = false }
 
 # Internal runtime API (with default disabled)
 kilt-runtime-api-did                = { path = "runtime-api/did", default-features = false }
@@ -184,6 +185,7 @@ try-runtime-cli                            = { git = "https://github.com/parityt
 pallet-assets                              = { git = "https://github.com/paritytech/polkadot-sdk", default-features = false, branch = "release-crates-io-v1.7.0" }
 pallet-nfts                                = { git = "https://github.com/paritytech/polkadot-sdk", default-features = false, branch = "release-crates-io-v1.7.0" }
 pallet-nft-fractionalization               = { git = "https://github.com/paritytech/polkadot-sdk", default-features = false, branch = "release-crates-io-v1.7.0" }
+pallet-insecure-randomness-collective-flip                               = { git = "https://github.com/paritytech/polkadot-sdk", default-features = false, branch = "release-crates-io-v1.7.0" }
 
 # Polkadot (with default disabled)
 pallet-xcm                  = { git = "https://github.com/paritytech/polkadot-sdk", default-features = false, branch = "release-crates-io-v1.7.0" }

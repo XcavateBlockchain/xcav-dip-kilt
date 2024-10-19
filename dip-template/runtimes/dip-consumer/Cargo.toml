@@ -31,6 +31,7 @@ pallet-property-governance    = { workspace = true }
 pallet-property-management    = { workspace = true }
 pallet-relay-store            = { workspace = true }
 pallet-xcavate-whitelist      = { workspace = true }
+pallet-game        = { workspace = true }
 
 # Substrate
 frame-executive                            = { workspace = true }
@@ -44,6 +45,7 @@ pallet-balances                            = { workspace = true }
 pallet-collective                          = { workspace = true }
 pallet-nft-fractionalization               = { workspace = true }
 pallet-nfts                                = { workspace = true }
+pallet-insecure-randomness-collective-flip = { workspace = true }
 pallet-session                             = { workspace = true }
 pallet-sudo                                = { workspace = true }
 pallet-timestamp                           = { workspace = true }
@@ -109,6 +111,7 @@ std = [
   "pallet-nft-fractionalization/std",
   "pallet-nft-marketplace/std",
   "pallet-nfts/std",
+  "pallet-insecure-randomness-collective-flip/std",
   "pallet-postit/std",
   "pallet-property-governance/std",
   "pallet-property-management/std",
@@ -120,6 +123,7 @@ std = [
   "pallet-transaction-payment/std",
   "pallet-utility/std",
   "pallet-xcavate-whitelist/std",
+  "pallet-game/std",
   "parachain-info/std",
   "parity-scale-codec/std",
   "rococo-runtime/std",
@@ -164,6 +168,7 @@ runtime-benchmarks = [
   "pallet-timestamp/runtime-benchmarks",
   "pallet-utility/runtime-benchmarks",
   "pallet-xcavate-whitelist/runtime-benchmarks",
+  "pallet-game/runtime-benchmarks",
   "rococo-runtime/runtime-benchmarks",
   "sp-runtime/runtime-benchmarks",
 ]
