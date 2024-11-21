@@ -31,6 +31,7 @@ pallet-property-governance    = { workspace = true }
 pallet-property-management    = { workspace = true }
 pallet-relay-store            = { workspace = true }
 pallet-xcavate-whitelist      = { workspace = true }
+pallet-game      = { workspace = true }
 
 # Substrate
 frame-executive                            = { workspace = true }
@@ -63,6 +64,7 @@ sp-std                                     = { workspace = true }
 sp-transaction-pool                        = { workspace = true }
 sp-version                                 = { workspace = true }
 sp-weights                                 = { workspace = true }
+pallet-insecure-randomness-collective-flip = { workspace = true }
 
 # Cumulus
 cumulus-pallet-aura-ext         = { workspace = true }
@@ -109,6 +111,8 @@ std = [
   "pallet-nft-fractionalization/std",
   "pallet-nft-marketplace/std",
   "pallet-nfts/std",
+  "pallet-insecure-randomness-collective-flip/std",
+  "pallet-game/std",
   "pallet-postit/std",
   "pallet-property-governance/std",
   "pallet-property-management/std",
@@ -157,6 +161,8 @@ runtime-benchmarks = [
   "pallet-nft-fractionalization/runtime-benchmarks",
   "pallet-nft-marketplace/runtime-benchmarks",
   "pallet-nfts/runtime-benchmarks",
+  "pallet-insecure-randomness-collective-flip/try-runtime",
+  "pallet-game/runtime-benchmarks",
   "pallet-property-governance/runtime-benchmarks",
   "pallet-property-management/runtime-benchmarks",
   "pallet-relay-store/runtime-benchmarks",
